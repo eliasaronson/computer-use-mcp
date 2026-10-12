@@ -1,0 +1,29 @@
+# Policy for the computer-use MCP server. Restart the service after editing:
+#   systemctl --user restart computer-use-mcp
+# Patterns are case-insensitive regexes (Rust `regex` syntax). app_ids match the Wayland app_id
+# (or X11 class for XWayland apps); see `list_windows` for the values in use.
+
+[server]
+port = 47321
+# A session keeps exclusive control this many seconds after its last action.
+lease_seconds = 90
+
+[screenshot]
+max_width = 1366
+max_height = 816
+
+# Never send mouse or keyboard input to these windows: anything that can run
+# code (terminals, REPLs) or holds secrets.
+[blocked]
+app_ids = [
+  "wezterm", "juliacalc", "foot", "kitty", "alacritty", "ghostty", "konsole",
+  "gnome-terminal", "xterm", "urxvt", "terminator", "tilix",
+  "keepassxc", "bitwarden", "1password", "seahorse",
+  "^signal$",
+]
+titles = []
+
+# Blacked out in screenshots (and titles hidden in list_windows).
+[private]
+app_ids = ["keepassxc", "bitwarden", "1password", "seahorse", "^signal$"]
+titles = []

@@ -1,0 +1,16 @@
+[Unit]
+Description=Computer-use MCP server for Claude Code (sway)
+
+[Service]
+ExecStart=%h/Documents/computer_use/rust/target/release/computer-use-mcp
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ReadWritePaths=%h/.local/state/computer-use-mcp
+UMask=0077
+MemoryMax=256M
+
+[Install]
+WantedBy=default.target
