@@ -1,7 +1,7 @@
 # computer-use-mcp
 
 A shared MCP server that lets Claude Code sessions see and control this sway desktop.
-One process (~10 MB) serves every session over HTTP on `127.0.0.1:47321`.
+One process (~14 MB) serves every session over HTTP on `127.0.0.1:47321`.
 
 - Screenshots: `grim`, one monitor at a time, scaled to fit 1366x816
 - Pointer: wlr virtual-pointer protocol (real drag and wheel scrolling)
@@ -9,7 +9,8 @@ One process (~10 MB) serves every session over HTTP on `127.0.0.1:47321`.
 - Window model and checks: sway IPC
 
 Tools: `screenshot`, `list_windows`, `focus_window`, `click`, `drag`, `scroll`,
-`type_text`, `key`, `release_control`.
+`type_text`, `key`, `release_control`. Input tools take `screenshot: true` to also return
+a screenshot taken 0.5 s after the action, which saves a round trip per step.
 
 ## Safety rails
 
@@ -20,6 +21,9 @@ Tools: `screenshot`, `list_windows`, `focus_window`, `click`, `drag`, `scroll`,
 - Apps matching `[private]` are blacked out of screenshots, and their titles are
   hidden in `list_windows`.
 - Actions are refused if the screen changed since the caller's last screenshot.
+- Clicks and drags are also refused if the pixels around the target changed, for example a
+  banner pushed the button down or a dialog opened. The comparison uses block-averaged
+  brightness of a fresh capture, so a blinking caret doesn't trigger it.
 - Typing only goes to a window that was focused in the screenshot or clicked since.
 - `super+…` and `ctrl+alt+F*/Backspace/Delete` are refused.
 - One session controls the desktop at a time. The lease lasts 90 s after its last action.

@@ -9,6 +9,7 @@ axum = "0.8.9"
 base64 = "0.23.1"
 chrono = "0.4.45"
 image = { version = "0.25.10", default-features = false, features = ["png", "jpeg", "pnm"] }
+libc = "0.2"
 regex = "1.13.1"
 rmcp = { version = "3.5.1", features = ["server", "transport-streamable-http-server", "macros", "schemars"] }
 rustix = { version = "1.1.5", features = ["fs", "process"] }

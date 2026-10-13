@@ -193,6 +193,7 @@ dependencies = [
  "base64",
  "chrono",
  "image",
+ "libc",
  "regex",
  "rmcp",
  "rustix",
