@@ -2,6 +2,8 @@
 Description=Computer-use MCP server for Claude Code (sway)
 
 [Service]
+# grim; set here because the unit can start before sway exports PATH
+Environment=PATH=/run/current-system/sw/bin:/etc/profiles/per-user/%u/bin:%h/.nix-profile/bin:/usr/bin:/bin
 ExecStart=%h/Documents/computer_use/rust/target/release/computer-use-mcp
 Restart=on-failure
 RestartSec=3
