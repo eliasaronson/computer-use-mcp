@@ -65,3 +65,11 @@ To be asked before each input action, add this to `permissions.ask` in
 `mcp__computer__type_text`, `mcp__computer__key`, `mcp__computer__focus_window`.
 
 After changing `config.toml`, run `systemctl --user restart computer-use-mcp`.
+
+### NixOS
+
+On NixOS you can instead build the package with `buildRustPackage` and declare the
+user service and policy in your system config. Then the binary and `config.toml` sit in
+the read-only Nix store, so a Claude session can't loosen its own rules. With that
+setup, the repo's `config.toml` and `computer-use-mcp.service` are only used for
+development.
